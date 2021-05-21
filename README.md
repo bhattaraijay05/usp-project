@@ -1,3 +1,11 @@
+# Project Installation
+
+```bash
+   git clone https://github.com/bhattaraijay05/usp-project.git
+   cd usp-project
+```
+
+
 # Setup
 
 ```bash
