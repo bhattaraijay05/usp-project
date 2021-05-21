@@ -1,11 +1,11 @@
 # Setup
 
-`Install python : https://www.python.org/downloads/release/python-386
-Use any version
-
+```bash
+Install python: 
+https://www.python.org/downloads/release/python-386
 Install node js :
-
-https://nodejs.org/en/download/`
+https://nodejs.org/en/download/
+```
 
 # Initialization of Backend
 
