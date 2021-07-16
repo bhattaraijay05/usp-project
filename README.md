@@ -12,17 +12,11 @@ https://nodejs.org/en/download/`
 Create a virtual environment
 
 ```bash
-cd backend
-python -m venv venv
-cd venv
-cd Scripts
-activate
+cd frontend
+npm install -g yarn
+yarn install
+yarn start
 ```
-
-```bash
-pip install -r requirements.txt
-```
-
 # Initialization of Frontend
 
 Using react js.
