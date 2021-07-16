@@ -5,12 +5,9 @@
    cd usp-project
 ```
 
-
 # Setup
 
 ```bash
-Install python: 
-https://www.python.org/downloads/release/python-386
 Install node js :
 https://nodejs.org/en/download/
 ```
@@ -20,11 +17,12 @@ https://nodejs.org/en/download/
 Create a virtual environment
 
 ```bash
-cd frontend
+cd backend
 npm install -g yarn
 yarn install
 yarn start
 ```
+
 # Initialization of Frontend
 
 Using react js.
