@@ -49,6 +49,18 @@ const Messages = ({ msg, userId }) => {
 				>
 					{msg.time}
 				</h5>
+				{msg.image && (
+					<img
+						style={{
+							width: 150,
+							height: 150,
+							backgroundColor: "transparent",
+							padding: 20,
+						}}
+						src={msg.image.preview}
+						alt={msg.name}
+					/>
+				)}
 			</div>
 		</div>
 	);

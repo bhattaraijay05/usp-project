@@ -14,6 +14,7 @@ const SENDMESSAGE = "send message";
 const TYPING = "typing";
 const USERJOINED = "user joined";
 const USERLEFT = "user left";
+const SENDIMAGE = "send image";
 
 var socket = io(ENDPOINT);
 
@@ -53,6 +54,14 @@ const ChatMessages = () => {
 				});
 			}
 		});
+		socket.on(SENDIMAGE, (msg) => {
+			setAllMessages((messages) => [...messages, msg]);
+			if (messageRef.current) {
+				messageRef.current.scrollIntoView({
+					behavior: "smooth",
+				});
+			}
+		});
 	}, []);
 
 	socket.on(USERJOINED, (data) => {
@@ -74,14 +83,30 @@ const ChatMessages = () => {
 		});
 	}, []);
 
-	const sendMessage = () => {
+	const sendImage = () => {
+		socket.emit(SENDIMAGE, {
+			id: id,
+			image: image,
+			name: name,
+			time: moment().format("MM ddd, YYYY hh:mm:ss a"),
+		});
+	};
+
+	const sendingMessage = () => {
 		socket.emit(SENDMESSAGE, {
 			id: id,
 			message: message,
 			name: name,
 			time: moment().format("MM ddd, YYYY hh:mm:ss a"),
 		});
+	};
+
+	const sendMessage = () => {
+		message !== "" && sendingMessage();
+		image.preview !== "" && sendImage();
 		setMessage("");
+		setImage({ preview: "", raw: "" });
+		setImageDisplay("none");
 	};
 
 	useEffect(() => {
@@ -107,6 +132,12 @@ const ChatMessages = () => {
 	};
 
 	const sendMedia = () => {
+		socket.emit(SENDIMAGE, {
+			id: id,
+			image: image,
+			name: name,
+			time: moment().format("MM ddd, YYYY hh:mm:ss a"),
+		});
 		setImage({ preview: "", raw: "" });
 		setImageDisplay("none");
 	};
