@@ -1,11 +1,14 @@
 import React from "react";
+import ChatMessages from "./components/ChatMessages";
 
 const App = () => {
-  return (
-    <div>
-      <h1>Hello World</h1>
-    </div>
-  );
+	return (
+		<div class="smartphone">
+			<div className="screen">
+				<ChatMessages />
+			</div>
+		</div>
+	);
 };
 
 export default App;

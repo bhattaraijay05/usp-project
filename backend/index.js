@@ -30,6 +30,7 @@ app.get("/", (req, res) => {
 
 io.on(CONNECTION, (socket) => {
 	socket.on(ADDUSER, function (data) {
+		console.log(data);
 		users.push(data);
 		socket.once(DISCONNECT, function () {
 			var pos = users.indexOf(data);
@@ -53,6 +54,11 @@ io.on(CONNECTION, (socket) => {
 
 	socket.on(SENDMESSAGE, (data) => {
 		io.emit(SENDMESSAGE, data);
+	});
+
+	//send image using socket
+	socket.on("send image", (data) => {
+		io.emit("send image", data);
 	});
 
 	socket.on(DISCONNECT, () => {
