@@ -5,6 +5,7 @@ import moment from "moment";
 import "./chat.css";
 import ImageLoadButton from "./ImageLoadButton";
 import SendButton from "./SendButton";
+import Messages from "./Messages";
 
 const ENDPOINT = "http://localhost:3001";
 const CONNECT = "connect";
@@ -158,21 +159,19 @@ const ChatMessages = () => {
 				<>
 					<div className="chat">
 						{allMessages.map((msg, index) => (
-							<div
-								className="message"
-								key={index}
-								style={{
-									float: msg.id === id ? "right" : "left",
-									backgroundColor:
-										msg.id === id ? "" : "#e0e0e0",
-								}}
-							>
-								{msg.message}
-								<span>{msg.time}</span>
-							</div>
+							<Messages msg={msg} userId={id} key={index} />
 						))}
+						<span ref={messageRef} style={{ float: "top" }} />
 					</div>
-					{typing}
+					<div
+						style={{
+							position: "absolute",
+							bottom: 50,
+							left: 8,
+						}}
+					>
+						{typing}
+					</div>
 
 					{image && (
 						<div

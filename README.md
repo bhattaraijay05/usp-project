@@ -14,8 +14,6 @@ https://nodejs.org/en/download/
 
 # Initialization of Backend
 
-Create a virtual environment
-
 ```bash
 cd backend
 npm install -g yarn

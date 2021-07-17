@@ -1,8 +1,10 @@
 .chat {
 	width: 100%;
-	height: calc(100% + -47px);
-	overflow: auto;
+	height: 90%;
+	overflow-y: scroll;
 	padding: 10px;
+	display: flex;
+	flex-direction: column;
 }
 .message {
 	border-radius: 7px;
@@ -11,6 +13,9 @@
 	font: 15px "Roboto", Segoe UI, sans-serif;
 	width: calc(100% + -50px);
 	margin-bottom: 10px;
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	hyphens: auto;
 }
 /* .message:nth-child(odd) {
 	float: left;

@@ -17,6 +17,7 @@ const DISCONNECT = "disconnect";
 const TYPING = "typing";
 const ADDUSER = "adduser";
 const SENDMESSAGE = "send message";
+const SENDIMAGE = "send image";
 const USERJOINED = "user joined";
 const USERLEFT = "user left";
 
@@ -57,8 +58,8 @@ io.on(CONNECTION, (socket) => {
 	});
 
 	//send image using socket
-	socket.on("send image", (data) => {
-		io.emit("send image", data);
+	socket.on(SENDIMAGE, (data) => {
+		io.emit(SENDIMAGE, data);
 	});
 
 	socket.on(DISCONNECT, () => {
