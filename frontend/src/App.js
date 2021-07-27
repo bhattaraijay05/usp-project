@@ -1,7 +1,7 @@
 import React from "react";
 import ChatMessages from "./components/ChatMessages";
 import { io } from "socket.io-client";
-const ENDPOINT = "http://localhost:3001";
+const ENDPOINT = "https://chat-application-usp.herokuapp.com/";
 
 var socket = io(ENDPOINT);
 
