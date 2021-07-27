@@ -6,13 +6,23 @@ const Messages = ({ msg, userId }) => {
 		<div
 			style={{
 				display: "flex",
-				justifyContent: msg.id === userId ? "flex-end" : "flex-start",
+				justifyContent:
+					msg.id === 0
+						? "center"
+						: msg.id === userId
+						? "flex-end"
+						: "flex-start",
 				padding: 3,
 			}}
 		>
 			<div
 				style={{
-					backgroundColor: msg.id === userId ? "#aede2e" : "#e0e0e0",
+					backgroundColor:
+						msg.id === 0
+							? "dodgerblue"
+							: msg.id === userId
+							? "#aede2e"
+							: "#e0e0e0",
 					width: 200,
 					position: "relative",
 				}}
@@ -20,18 +30,18 @@ const Messages = ({ msg, userId }) => {
 			>
 				<h5
 					style={{
-						color: "black",
+						color: msg.id === 0 ? "#fff" : "#000",
 						marginLeft: 5,
 						position: "absolute",
 						marginTop: -3,
 					}}
 				>
-					{msg.name}
+					{msg.name.toUpperCase()}
 				</h5>
 
 				<p
 					style={{
-						color: "black",
+						color: msg.id === 0 ? "#fff" : "#000",
 						marginLeft: 10,
 					}}
 				>
@@ -40,7 +50,7 @@ const Messages = ({ msg, userId }) => {
 
 				<h5
 					style={{
-						color: "black",
+						color: msg.id === 0 ? "#fff" : "#000",
 						marginLeft: 2,
 						position: "absolute",
 						right: 3,

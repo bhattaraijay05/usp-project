@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { io } from "socket.io-client";
+
 import moment from "moment";
 
 import "./chat.css";
@@ -7,18 +7,14 @@ import ImageLoadButton from "./ImageLoadButton";
 import SendButton from "./SendButton";
 import Messages from "./Messages";
 
-const ENDPOINT = "http://localhost:3001";
 const CONNECT = "connect";
 const ADDUSER = "adduser";
 const SENDMESSAGE = "send message";
 const TYPING = "typing";
-const USERJOINED = "user joined";
-const USERLEFT = "user left";
 const SENDIMAGE = "send image";
+const rooms = ["gaming", "science", "programming", "movie"];
 
-var socket = io(ENDPOINT);
-
-const ChatMessages = () => {
+const ChatMessages = ({ socket }) => {
 	const [image, setImage] = useState({ preview: "", raw: "" });
 	const [imageDisplay, setImageDisplay] = useState("none");
 
@@ -30,11 +26,10 @@ const ChatMessages = () => {
 	const [message, setMessage] = useState("");
 	const [allMessages, setAllMessages] = useState([]);
 	const [name, setName] = useState("");
+	const [room, setRoom] = useState(rooms[0]);
 	const [id, setId] = useState("");
 	const [isUserSet, setIsUserSet] = useState(false);
 	const [typing, setTyping] = useState("");
-	const [newUser, setNewUser] = useState("");
-	const [leftUser, setLeftUser] = useState("");
 
 	useEffect(() => {
 		socket.on(CONNECT, () => {
@@ -42,12 +37,9 @@ const ChatMessages = () => {
 		});
 	}, []);
 
-	socket.on(USERLEFT, (data) => setLeftUser(data));
-
 	useEffect(() => {
 		socket.on(SENDMESSAGE, (msg) => {
 			setAllMessages((messages) => [...messages, msg]);
-
 			if (messageRef.current) {
 				messageRef.current.scrollIntoView({
 					behavior: "smooth",
@@ -64,13 +56,12 @@ const ChatMessages = () => {
 		});
 	}, []);
 
-	socket.on(USERJOINED, (data) => {
-		setNewUser(data.data.name);
-	});
-
 	const addUserToChat = () => {
-		socket.emit(USERJOINED, { name: name, id: id });
-		socket.emit(ADDUSER, { name: name, id: id });
+		socket.emit(ADDUSER, { name, id, room }, (error) => {
+			if (error) {
+				alert(error);
+			}
+		});
 		setOpen(true);
 		setIsUserSet(true);
 	};
@@ -131,17 +122,6 @@ const ChatMessages = () => {
 		}
 	};
 
-	const sendMedia = () => {
-		socket.emit(SENDIMAGE, {
-			id: id,
-			image: image,
-			name: name,
-			time: moment().format("MM ddd, YYYY hh:mm:ss a"),
-		});
-		setImage({ preview: "", raw: "" });
-		setImageDisplay("none");
-	};
-
 	return (
 		<>
 			{!isUserSet && (
@@ -156,6 +136,18 @@ const ChatMessages = () => {
 						flexDirection: "column",
 					}}
 				>
+					<label for="room">Choose a room:</label>
+					<select
+						name="room"
+						id="room"
+						onChange={(e) => setRoom(e.target.value)}
+					>
+						{rooms.map((room, i) => (
+							<option value={room} key={i}>
+								{room}
+							</option>
+						))}
+					</select>
 					<input
 						type="text"
 						value={name}
@@ -168,6 +160,7 @@ const ChatMessages = () => {
 							}
 						}}
 					/>
+
 					<div style={{ marginTop: 10 }} />
 
 					<button
@@ -232,6 +225,7 @@ const ChatMessages = () => {
 								socket.emit(TYPING, {
 									userName: name,
 									typing: true,
+									room,
 								});
 							}}
 							onKeyUp={() => {
@@ -239,6 +233,7 @@ const ChatMessages = () => {
 									socket.emit(TYPING, {
 										userName: name,
 										typing: false,
+										room,
 									});
 								}, 3000);
 							}}
