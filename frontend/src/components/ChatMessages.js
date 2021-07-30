@@ -12,7 +12,7 @@ const ADDUSER = "adduser";
 const SENDMESSAGE = "send message";
 const TYPING = "typing";
 const SENDIMAGE = "send image";
-const rooms = ["gaming", "science", "programming", "movie"];
+const rooms = ["Gaming", "Science", "Programming", "Movie"];
 
 const ChatMessages = ({ socket }) => {
 	const [image, setImage] = useState({ preview: "", raw: "" });
@@ -136,6 +136,16 @@ const ChatMessages = ({ socket }) => {
 						flexDirection: "column",
 					}}
 				>
+					<img
+						src="/logo.png"
+						style={{
+							width: "100px",
+							height: "100px",
+							position: "absolute",
+							bottom: "60vh",
+						}}
+					/>
+
 					<label for="room">Choose a room:</label>
 					<select
 						name="room"
@@ -148,9 +158,12 @@ const ChatMessages = ({ socket }) => {
 							</option>
 						))}
 					</select>
+					<div style={{ padding: "10px" }} />
 					<input
 						type="text"
 						value={name}
+						placeholder="Your name"
+						style={{ padding: "10px" }}
 						onChange={(e) => setName(e.target.value)}
 						onKeyPress={(event) => {
 							if (event.key === "Enter") {
@@ -172,6 +185,7 @@ const ChatMessages = ({ socket }) => {
 							padding: 10,
 							cursor: "pointer",
 							borderRadius: 15,
+							fontSize: 18,
 						}}
 					>
 						Enter Chat
